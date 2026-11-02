@@ -1,0 +1,36 @@
+<div>
+  <div class="search-bar">
+    <label>Keresési kulcs</label>
+    <input type="text" class="search-input">
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Név</th>
+        <th>Nehézség</th>
+        <th>Megmaradt zsetonok</th>
+        <th>Kategóriák</th>
+        <th>Dátum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scores.each do |score| %>
+        <tr>
+          <td><%= score.name %></td>
+          <td><%= score.difficulty %></td>
+          <td><%= score.remaining_tokens %></td>
+          <td><%= score.categories %></td>
+          <td><%= score.date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span>Previous</span>
+    <span class="active">1</span>
+    <span>2</span><span>3</span>
+    <span>Next</span>
+  </div>
+</div>

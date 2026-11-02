@@ -14,15 +14,39 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <% css_file = Rails.root.join("app/assets/stylesheets/#{controller_name}.css") %>
+    <% if File.exist?(css_file) %>
+      <%= stylesheet_link_tag controller_name %>
+    <% end %>
   </head>
 
   <body>
+    <div class="app-container">
+  <nav class="sidebar">
+    <div class="logo">
+      <div class="logo-box">X</div>
+    </div>
+
+    <%
+      in_game = current_page?(game_path) 
+    %>
+
+    <div class="nav-links">
+      <%= link_to 'Kezdőoldal', home_path, 
+          class: "nav-btn #{'active' if current_page?(home_path)} #{'disabled' if in_game}" %>
+      
+      <%= link_to 'Eredmények', scores_path, 
+          class: "nav-btn #{'active' if current_page?(scores_path)} #{'disabled' if in_game}" %>
+      
+      <%= link_to 'Kérdés Műhely', questions_path, 
+          class: "nav-btn #{'active' if params[:controller] == 'questions'} #{'disabled' if in_game}" %>
+    </div>
+  </nav>
+
+  <main class="main-content">
     <%= yield %>
+  </main>
+  
   </body>
 </html>

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="rules-box">
+    <h3>Szabályok</h3>
+    <p>A játékosok egy meghatározott mennyiségű zsetonnal indulnak, és minden körben ezt a zsetonmennyiséget kell elosztaniuk az egyes válaszlehetőségek között. A játék célja a lehető legnagyobb vagyon felhalmozása, a menet pedig addig tart, amíg a játékos el nem veszíti az összes zsetonját, és csődbe nem megy.</p>
+  </div>
+
+  <%= form_with model: @game_session, url: game_path, method: :get, class: "custom-form" do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "Név" %>
+      <%= f.text_field :name, placeholder: "Játékos neve" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :difficulty, "Nehézség" %>
+      <%= f.select :difficulty, @difficulties %>
+    </div>
+    <div class="form-group">
+      <p>Kérdés kategóriák</p>
+      <div class="checkbox-group">
+        <% @categories.each do |category| %>
+          <label><%= f.check_box :category, {multiple: true}, category, nil %> <%= category %></label>
+        <% end %>
+      </div>
+    </div>
+    <%= f.submit "Játék Indítás", class: "btn-blue" %>
+  <% end %>
+</div>
