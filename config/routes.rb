@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get "home", to:"home#index"
+  get "game", to:"game#show"
+  get "scores", to:"scores#index"
+
+  get 'questions', to: 'questions#index'
+  get 'questions/:id', to: 'questions#edit', as: 'edit_question'
+  
+  post 'questions/:id', to: 'questions#update'
+  put 'questions/:id', to: 'questions#update'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

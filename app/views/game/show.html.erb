@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="info-block">
+    <div>Sorszáma: <%= @question_number %></div>
+    <div>Kategória: <%= @question.category %></div>
+    <div>Zsetonok száma: <%= @game_session.remaining_tokens %></div>
+  </div>
+
+  <h1 class="question-title"><%= @question.text %></h1>
+
+  <div class="answers-grid">
+    <% [@question.answer1, @question.answer2, @question.answer3, @question.answer4].each_with_index do |answer, index| %>
+      <div class="answer-card">
+        <div class="answer-text"><%= answer %></div>
+        <div class="token-input">
+          <label>Zseton</label>
+          <input type="number" min="0" max="<%= @game_session.remaining_tokens %>" value="<%= [0, 500, 100, 400][index] %>">
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="footer">
+    <button class="btn-blue" id="finalize-btn">Véglegesítés</button>
+  </div>
+</div>

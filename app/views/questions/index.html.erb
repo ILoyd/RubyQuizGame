@@ -1,0 +1,43 @@
+<div>
+  <div class="search-bar">
+    <label>Keresési kulcs</label>
+    <input type="text" class="search-input">
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Kérdés</th>
+        <th>Válasz 1</th>
+        <th>Válasz 2</th>
+        <th>Válasz 3</th>
+        <th>Válasz 4</th>
+        <th>Helyes válasz</th>
+        <th>Kategória</th>
+        <th>Nehézség</th>
+        <th>Akciók</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @questions.each do |q| %>
+        <tr>
+          <td><%= q.text %></td><td><%= q.answer1 %></td><td><%= q.answer2 %></td>
+          <td><%= q.answer3 %></td><td><%= q.answer4 %></td><td><%= q.correct_answer %></td>
+          <td><%= q.category %></td><td><%= q.difficulty %></td>
+          <td class="actions">
+            <%= link_to '📝', edit_question_path(q.id), class: "icon-btn" %>
+            <a href="#" class="icon-btn">🗑️</a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span>Previous</span>
+    <span class="active">1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>Next</span>
+  </div>
+</div>
