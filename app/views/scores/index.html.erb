@@ -18,10 +18,10 @@
       <% @scores.each do |score| %>
         <tr>
           <td><%= score.name %></td>
-          <td><%= score.difficulty %></td>
+          <td><%= score.difficulty.name %></td>
           <td><%= score.remaining_tokens %></td>
           <td><%= score.categories %></td>
-          <td><%= score.date %></td>
+          <td><%= score.created_at %></td>
         </tr>
       <% end %>
     </tbody>

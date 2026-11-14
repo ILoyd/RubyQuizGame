@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
-    @game_session = Score.new
+    @score = Score.new
 
-    @difficulties = ["Könnyű", "Közepes", "Nehéz"]
-    @categories = ["Kategória 1", "Kategória 2", "Összes"]
+    @difficulties = Difficulty.joins(:questions).distinct
+    @categories = Category.joins(:questions).distinct
   end
 end

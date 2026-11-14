@@ -1,0 +1,36 @@
+<%= form_with model: @question, local: true, class: "custom-form" do |f| %>
+    <div class="form-group">
+      <%= f.label :text, "Kérdés" %>
+      <%= f.text_field :text, required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :answer1, "Válasz1" %>
+      <%= f.text_field :answer1, required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :answer2, "Válasz2" %>
+      <%= f.text_field :answer2, required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :answer3, "Válasz3" %>
+      <%= f.text_field :answer3, required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :answer4, "Válasz4" %>
+      <%= f.text_field :answer4, required: true %>
+    </div>
+    <div class="form-group mt-2">
+      <%= f.label :correct_answer, "Helyes válasz sorszáma (1-4)" %>
+      <%= f.select :correct_answer, [1, 2, 3, 4], { prompt: "Válassz helyes választ..." }, { required: true } %>
+    </div>
+    <div class="form-group">
+      <%= f.label :difficulty_id, "Nehézség" %>
+      <%= f.collection_select :difficulty_id, Difficulty.all, :id, :name, { prompt: "Válassz nehézséget..." }, { required: true }%>
+    </div>
+    <div class="form-group">
+      <%= f.label :category_id, "Kategória" %>
+      <%= f.collection_select :category_id, Category.all, :id, :name, { prompt: "Válassz kategóriát..." }, { required: true } %>
+    </div>
+
+    <%= f.submit "Mentés", class: "btn-blue" %>
+<% end %>

@@ -1,17 +1,5 @@
 <div class="container">
   <h1>Kérdés szerkesztés</h1>
 
-  <%= form_with model: @question, url: edit_question_path(@question.id), method: :put, class: "custom-form" do |f| %>
-    <div class="form-group"><%= f.label :text, "Kérdés" %><%= f.text_field :text %></div>
-    <div class="form-group"><%= f.label :answer1, "Válasz1" %><%= f.text_field :answer1 %></div>
-    <div class="form-group"><%= f.label :answer2, "Válasz2" %><%= f.text_field :answer2 %></div>
-    <div class="form-group"><%= f.label :answer3, "Válasz3" %><%= f.text_field :answer3 %></div>
-    <div class="form-group"><%= f.label :answer4, "Válasz4" %><%= f.text_field :answer4 %></div>
-    
-    <div class="form-group mt-2"><%= f.label :correct_answer, "Helyes válasz" %><%= f.select :correct_answer, [1,2,3,4] %></div>
-    <div class="form-group"><%= f.label :difficulty, "Nehézség" %><%= f.select :difficulty, @difficulties %></div>
-    <div class="form-group"><%= f.label :category, "Kategória" %><%= f.select :category, @categories %></div>
-
-    <%= f.submit "Mentés", class: "btn-blue" %>
-  <% end %>
+  <%= render 'form' %>
 </div>
