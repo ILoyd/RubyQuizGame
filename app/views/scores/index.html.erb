@@ -1,17 +1,26 @@
 <div>
-  <div class="search-bar">
-    <label>Keresési kulcs</label>
-    <input type="text" class="search-input">
+  <div class="header-actions">
+    <%= form_with url: scores_path, method: :get, local: true do |f| %>
+      <div class="search-bar">
+        <label>Keresési kulcs</label>
+        <%= text_field_tag :search, params[:search], class: "search-input" %>
+        <%= f.submit "Keresés", class: "btn-blue", style: "padding: 5px 5px" %>
+        <% if params[:search].present? %>
+          <%= link_to "Törlés", scores_path, class: "btn-red" %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <table class="data-table">
     <thead>
       <tr>
         <th>Név</th>
-        <th>Nehézség</th>
-        <th>Megmaradt zsetonok</th>
+        <th><%= sortable "difficulty_id", "Nehézség" %></th>
+        <th><%= sortable "correct_answers_count", "Helyes válaszok száma" %></th>
+        <th><%= sortable "remaining_tokens", "Végső zsetonszám" %></th>
         <th>Kategóriák</th>
-        <th>Dátum</th>
+        <th><%= sortable "created_at", "Dátum" %></th>
       </tr>
     </thead>
     <tbody>
@@ -19,18 +28,14 @@
         <tr>
           <td><%= score.name %></td>
           <td><%= score.difficulty.name %></td>
+          <td><%= score.correct_answers_count %></td>
           <td><%= score.remaining_tokens %></td>
           <td><%= score.categories %></td>
-          <td><%= score.created_at %></td>
+          <td><%= score.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <div class="pagination">
-    <span>Previous</span>
-    <span class="active">1</span>
-    <span>2</span><span>3</span>
-    <span>Next</span>
-  </div>
+  <%= paginate @scores %>
 </div>

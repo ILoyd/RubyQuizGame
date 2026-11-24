@@ -67,7 +67,10 @@ body {
 }
 
 .search-bar {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px
 }
 .search-input {
     background: #222;
@@ -98,7 +101,7 @@ body {
     justify-content: center;
 }
 .pagination span {
-    padding: 5px 10px;
+    display: flex;
     cursor: pointer;
     border: 1px solid #555;
 }
@@ -111,7 +114,27 @@ body {
     border-bottom-right-radius: 5px;
 }
 .pagination span.active { 
+    padding: 5px 10px;
     color: #007bff;
+    font-weight: bold;
+}
+.pagination span a{
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+}
+.pagination span:not(.active):has(a):hover{
+    background-color: white;
+
+    a{
+        color: #222;
+    }
+}
+.pagination span:not(:has(a)) {
+    color: #ccc;
+    background-color: #222;
+    padding: 5px 10px;
+    cursor: auto;
 }
 
 .custom-form {
@@ -162,5 +185,45 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 40px;
+}
+
+.btn-blue:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-red {
+    background-color: red;
+    color: white; border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.header-actions
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+th a {
+  text-decoration: none;
+  color: white;
+}
+
+th a.current {
+  font-weight: bold;
+  color: #007bff;
+}
+
+th a.current.asc::after {
+  content: " ↑";
+}
+
+th a.current.desc::after {
+  content: " ↓";
 }

@@ -1,20 +1,20 @@
 <div class="container">
   <div class="info-block">
-    <div>Sorszáma: <%= @question_number %></div>
+    <div>Sorszáma: <%= @score.correct_answers_count %></div>
     <div>Kategória: <%= @question.category.name %></div>
     <div>Zsetonok száma: <%= @score.remaining_tokens %></div>
   </div>
 
   <h1 class="question-title"><%= @question.text %></h1>
 
-  <%= form_with url: process_answer_path, method: :post, local: true do |f| %>
+  <%= form_with url: process_answer_path(score_id: @score.id, question_id: @question.id, asked_ids: @asked_ids), method: :post, local: true do |f| %>
     <div class="answers-grid">
       <% [@question.answer1, @question.answer2, @question.answer3, @question.answer4].each_with_index do |answer, index| %>
         <div class="answer-card">
           <div class="answer-text"><%= answer %></div>
           <div class="token-input">
             <label>Zseton</label>
-            <%= number_field_tag "bets[#{index}]", @bets[index], min: 0, max: @score.remaining_tokens %>
+            <%= number_field_tag "bets[#{index}]", 0, min: 0, max: @score.remaining_tokens, class: "bet-input" %>
           </div>
         </div>
       <% end %>
@@ -25,3 +25,30 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  const betInputs = document.querySelectorAll('.bet-input');
+  const submitBtn = document.getElementById('finalize-btn');
+
+  const maxTokens = parseInt("<%= @score.remaining_tokens %>", 10);
+
+  function validateTokenDistribution() {
+    let currentSum = 0;
+    
+    betInputs.forEach(function(input) {
+      currentSum += parseInt(input.value || 0, 10);
+    });
+
+    if (currentSum === maxTokens) {
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.disabled = true;
+    }
+  }
+
+  betInputs.forEach(function(input) {
+    input.addEventListener('input', validateTokenDistribution);
+  });
+
+  validateTokenDistribution();
+</script>

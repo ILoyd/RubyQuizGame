@@ -1,6 +1,12 @@
 class QuestionsController < ApplicationController
   def index
     @questions = Question.includes(:category, :difficulty).all
+
+    if params[:search].present?
+      @questions = @questions.where("text LIKE ?", "%#{params[:search]}%")
+    end
+
+    @questions = @questions.page(params[:page]).per(10)
   end
 
   def new

@@ -1,10 +1,16 @@
 <div>
   <div class="header-actions">
-    <div class="search-bar">
-      <label>Keresési kulcs</label>
-      <input type="text" class="search-input">
-    </div>
-    <%= link_to 'Új kérdés', new_question_path, class: "btn-blue" %>
+    <%= form_with url: questions_path, method: :get, local: true do |f| %>
+      <div class="search-bar">
+        <label>Keresési kulcs</label>
+        <%= text_field_tag :search, params[:search], class: "search-input" %>
+        <%= f.submit "Keresés", class: "btn-blue", style: "padding: 5px 5px" %>
+        <% if params[:search].present? %>
+          <%= link_to "Törlés", questions_path, class: "btn-red" %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= button_to 'Új kérdés', new_question_path, method: :get, class: "btn-blue"%>
   </div>
 
   <table class="data-table">
@@ -41,11 +47,5 @@
     </tbody>
   </table>
 
-  <div class="pagination">
-    <span>Previous</span>
-    <span class="active">1</span>
-    <span>2</span>
-    <span>3</span>
-    <span>Next</span>
-  </div>
+  <%= paginate @questions %>
 </div>
